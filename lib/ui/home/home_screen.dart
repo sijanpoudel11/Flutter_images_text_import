@@ -9,6 +9,8 @@ import 'package:receivesharing/constants/dimens_constants.dart';
 import 'package:receivesharing/constants/font_size_constants.dart';
 import 'package:receivesharing/extension/scaffold_extension.dart';
 import 'package:receivesharing/ui/home/user_listing_screen.dart';
+import 'package:receivesharing/ui/imageDisplay.dart';
+import 'package:receivesharing/ui/textDisaplay.dart';
 
 class HomeScreen extends StatefulWidget {
   @override
@@ -49,6 +51,7 @@ class _HomeScreenState extends State<HomeScreen> {
     // For sharing images coming from outside the app
     // while the app is in the memory
     ReceiveSharingIntent.getMediaStream().listen((List<SharedMediaFile> value) {
+      print("sharedfile $value");
       navigateToShareMedia(context, value);
     }, onError: (err) {
       debugPrint("$err");
@@ -56,6 +59,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
     // For sharing images coming from outside the app while the app is closed
     ReceiveSharingIntent.getInitialMedia().then((List<SharedMediaFile> value) {
+      print("sharrrred $value");
       navigateToShareMedia(context, value);
     });
 
@@ -86,21 +90,19 @@ class _HomeScreenState extends State<HomeScreen> {
               : element.path,
         ));
       });
+      print("files $newFiles");
       Navigator.of(context).push(MaterialPageRoute(
-          builder: (context) => UserListingScreen(
+          builder: (context) => ImageDisplay(
                 files: newFiles,
-                text: "",
               )));
     }
   }
 
   void navigateToShareText(BuildContext context, String? value) {
+    print(value);
     if (value != null && value.toString().isNotEmpty) {
       Navigator.of(context).push(MaterialPageRoute(
-          builder: (context) => UserListingScreen(
-                files: [],
-                text: value,
-              )));
+          builder: (context) => TextDisplay(sharedText: value)));
     }
   }
 }
