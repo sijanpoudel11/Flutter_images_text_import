@@ -10,6 +10,7 @@ import 'package:receivesharing/constants/font_size_constants.dart';
 import 'package:receivesharing/extension/scaffold_extension.dart';
 import 'package:receivesharing/ui/home/user_listing_screen.dart';
 import 'package:receivesharing/ui/imageDisplay.dart';
+import 'package:receivesharing/ui/shareView.dart';
 import 'package:receivesharing/ui/textDisaplay.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -91,18 +92,16 @@ class _HomeScreenState extends State<HomeScreen> {
         ));
       });
       print("files $newFiles");
-      Navigator.of(context).push(MaterialPageRoute(
-          builder: (context) => ImageDisplay(
-                files: newFiles,
-              )));
+      Navigator.of(context)
+          .push(MaterialPageRoute(builder: (context) => ShareView()));
     }
   }
 
   void navigateToShareText(BuildContext context, String? value) {
     print(value);
     if (value != null && value.toString().isNotEmpty) {
-      Navigator.of(context).push(MaterialPageRoute(
-          builder: (context) => TextDisplay(sharedText: value)));
+      Navigator.of(context)
+          .push(MaterialPageRoute(builder: (context) => ShareView()));
     }
   }
 }
